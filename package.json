@@ -1,0 +1,15 @@
+{
+  "title": "JMeter Script Recorder",
+  "name": "jmeterscriptrecoder",
+  "version": "0.0.1",
+  "description": "JMeter Script Recorder",
+  "main": "index.js",
+  "author": "jacojang@jacojang.com",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ]
+}
