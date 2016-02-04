@@ -1,11 +1,13 @@
 var self = require('sdk/self');
 var events = require("sdk/system/events");
 var observer = require("lib/observer");
-var prefs = require("lib/prefs");
+var db = require("lib/db");
+var prefs = require('sdk/simple-prefs');
 var tabs = require("sdk/tabs");
 var { ActionButton } = require("sdk/ui/button/action");
 var ctx = {
-	prefs:prefs,
+	db:db,
+	prefs:prefs.prefs,
 	configTab:null,
 	tabWorker:null,
 	datas:[]
@@ -49,7 +51,8 @@ var button = ActionButton({
 });
 
 // Initial
-prefs.set("start",false);
+ctx.prefs["start"] = false;
+ctx.db.open();
 
 // Set event observer
 observer.setContext(ctx);
