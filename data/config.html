@@ -1,0 +1,36 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-css/bootstrap-theme.min.css" />
+</head>
+<body>
+	<div class="contents">
+		<div id="appname">JMeterScriptRecorder</div>
+		<div class="contents_left">
+			<p class="bg-primary title" > Configure </p>
+			<h5>URL Filter</h5>
+			<div class="text-right">
+				<form class="form-inline">
+					<input type="text" class="form-control input-sm" style="width:250px" id="addFilter" placeholder="">
+					<button type="button" class="btn btn-primary btn-sm">Add</button>
+				</form>
+			</div>
+			<br>
+			<h5>Type Filter</h5>
+			<div class="text-right">
+				<button type="button" id="startStop" class="btn btn-primary btn-sm">Start</button>
+			</div>
+
+		</div>
+		<div class="contents_right">
+			<p class="bg-info title" > Recorded List </p>
+			<div class="recordedListOuter">
+				<ol id="recordedList">
+				</ol>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
