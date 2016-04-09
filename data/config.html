@@ -7,29 +7,19 @@
 </head>
 <body>
 	<div class="contents">
-		<div id="appname">JMeterScriptRecorder</div>
-		<div class="contents_left">
-			<p class="bg-primary title" > Configure </p>
-			<h5>URL Filter</h5>
-			<div class="text-right">
-				<form class="form-inline">
-					<input type="text" class="form-control input-sm" style="width:250px" id="addFilter" placeholder="">
-					<button type="button" class="btn btn-primary btn-sm">Add</button>
-				</form>
-			</div>
-			<br>
-			<h5>Type Filter</h5>
-			<div class="text-right">
-				<button type="button" id="startStop" class="btn btn-primary btn-sm">Start</button>
-			</div>
-
+		<div class="top">
+			<div class='title'>JMeter Script Recorder</div>
 		</div>
-		<div class="contents_right">
-			<p class="bg-info title" > Recorded List </p>
-			<div class="recordedListOuter">
-				<ol id="recordedList">
-				</ol>
+		<div class="middle">
+			<div class="left">left</div>
+			<div class="right">
+				<div id="recordedList"></div>
 			</div>
+		</div>
+		<div class="bottom rfloat">
+			<a class="" style="display:none" id="save_proc">----</a>
+			<button type="button" class="btn btn-primary" id="btn_save" >Save</button>
+			<button type="button" class="btn btn-primary" id="btn_start_stop" >Start</button>
 		</div>
 	</div>
 </body>

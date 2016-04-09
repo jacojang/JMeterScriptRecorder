@@ -35,8 +35,21 @@ var button = ActionButton({
 						});
 
 						ctx.tabWorker.port.emit('init',ctx);
+						ctx.tabWorker.port.on("save",function() {
+							ctx.tabWorker.port.emit('save',ctx);
+						});
 						ctx.tabWorker.port.on("updatePrefs",function(data) {
-							//console.log('prop:',data);
+						});
+						ctx.tabWorker.port.on('updateStartStop', function(flag) {
+							if (flag === 'Start'){
+								// Start Recording
+								ctx.prefs['run'] = false;
+								ctx.tabWorker.port.emit('updateStartStop','Start');
+							} else {
+								// Stop Recording
+								ctx.prefs['run'] = true;
+								ctx.tabWorker.port.emit('updateStartStop','Stop');
+							}
 						});
 					});
 
@@ -44,6 +57,7 @@ var button = ActionButton({
 						ctx.configTab = null;
 						ctx.tabWorker = null;
 					});
+
 				}
 			});
 		}
@@ -51,7 +65,7 @@ var button = ActionButton({
 });
 
 // Initial
-ctx.prefs["start"] = false;
+ctx.prefs["run"] = false;
 ctx.db.open();
 
 // Set event observer

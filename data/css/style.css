@@ -1,53 +1,70 @@
 * {
-	margin:0px;
-	border:0px;
+	margin:0;
+	border:0;
 }
 
-.contents_left {
-	position: absolute;
-	left:0px;
-	top:00px;
-	width:400px;
-	height: 100%;
-	padding:10px;
-	padding-top: 60px;
-}
-.contents_right {
-	position: absolute;
-	border-left:1px solid #CDCDCD;
-	border-right:1px solid #CDCDCD;
-	left:400px;
-	top:0px;
-	width: calc(100% - 400px);
-	height: 100%;
-	padding:10px;
+.contents {
+	position: relative;
+	height:100%;
+	width:100%;
 }
 
-#appname {
-	position: absolute;
-	width: 400px;
-	top:0px;
-	left:0px;
+.top {
 	height:50px;
-	line-height: 50px;
-	background-color: black;
-	color: white;
-	font-size: 1.6em;
+	border: 1px solid red;
+}
+.top .title {
+	font-size:1.4em;
 	font-weight: bold;
 	text-align: center;
-	vertical-align: center;
+	vertical-align: middle;
+	display: inline-block;;
+	line-height: 40px;
+	padding:5px;
+	width:100%;
+}
+
+.inner {
+	width:100%;
+	height:100%;
+	line-height: 40px;
+	padding:5px;
+	text-align: right;
+	display: table-cell;
+	vertical-align: middle;
+	position:absolute;
+}
+
+.middle {
+	height:calc(100% - 100px);
+	border: 1px solid green;
+}
+
+.bottom {
+	height:50px;
+	border: 1px solid yellow;
+	position: relative;
+	vertical-align: middle;
 	display: table-cell;
 }
 
-.title {
-	font-size:1.4em;
-	padding:5px;
-	font-weight: bold;
+.left {
+	float:left;
+	height:100%;
+	width:300px;
+	background-color: green;
 }
 
-.recordedListOuter {
-	width:100%;
-	height:calc(100% - 50px);
-	overflow: auto;
-	border:1px solid blue;
+.right {
+	float:right;
+	height:100%;
+	width:calc(100% - 300px);
+	background-color: lime;
+}
+
+.rfloat {
+	float: right;
+}
+.lfloat {
+	float: left;
 }
