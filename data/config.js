@@ -1,12 +1,21 @@
 // ----------------------------------------------------------------------------
 // Local function
 // ----------------------------------------------------------------------------
-function save(ctx){
-	var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(ctx.datas));
+function genFilename() {
+	var now = new Date();
+	return now.getFullYear()+
+			'_'+(now.getMonth()+1)+
+			'_'+now.getDate()+
+			'-'+now.getHours()+
+			'_'+now.getMinutes()+
+			'_'+now.getSeconds()+'-JMeterScriptRecorder.jmx';
+}
+function save(str){
+	var data = "text/xml;charset=utf-8," + encodeURIComponent(str);
 
 	var a = document.getElementById('save_proc');
 	a.setAttribute("href", 'data:'+data);
-	a.setAttribute("download", "scene.json");
+	a.setAttribute("download", genFilename());
 	a.style.display = 'none';
 	a.click();
 	a.setAttribute("href", '');

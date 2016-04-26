@@ -5,12 +5,14 @@ var db = require("lib/db");
 var prefs = require('sdk/simple-prefs');
 var tabs = require("sdk/tabs");
 var { ActionButton } = require("sdk/ui/button/action");
+var jmeter = require("lib/jmeter");
 var ctx = {
 	db:db,
 	prefs:prefs.prefs,
 	configTab:null,
 	tabWorker:null,
-	datas:[]
+	datas:[],
+	jmeter: jmeter
 };
 
 // Make a button to enable recording function
@@ -36,7 +38,8 @@ var button = ActionButton({
 
 						ctx.tabWorker.port.emit('init',ctx);
 						ctx.tabWorker.port.on("save",function() {
-							ctx.tabWorker.port.emit('save',ctx);
+							var str = ctx.jmeter.getScriptData(ctx.datas);
+							ctx.tabWorker.port.emit('save', str);
 						});
 						ctx.tabWorker.port.on("updatePrefs",function(data) {
 						});
