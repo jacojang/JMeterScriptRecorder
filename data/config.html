@@ -3,7 +3,7 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-css/bootstrap.min.css" />
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-css/bootstrap-theme.min.css" />
+	<!--link rel="stylesheet" type="text/css" href="css/bootstrap-css/bootstrap-theme.min.css" /-->
 </head>
 <body>
 	<div class="contents">
@@ -11,15 +11,58 @@
 			<div class='title'>JMeter Script Recorder</div>
 		</div>
 		<div class="middle">
-			<div class="left">left</div>
+			<div class="left" style="padding:5px">
+				<fieldset class="form-group" name="Control">
+					<legend>Control</legend>
+					<button type="button" class="btn-sm btn-primary">Clear All Filter</button>
+				</fieldset>
+				<fieldset class="form-group" name="Allow">
+					<legend>Allow</legend>
+					<div id="allow_list" class="item_table">
+						<div class="allow item">
+							<div class="item_number">1.</div>
+							<div class="item_title">www.daum.net</div>
+							<div class="item_control">
+								<button type="button" class="btn-xs">del</button>
+							</div>
+						</div>
+                        <div class="allow item">
+							<div class="item_number">2.</div>
+							<div class="item_title">/.*.png$/</div>
+							<div class="item_control">
+								<button type="button" class="btn-xs">del</button>
+							</div>
+						</div>
+					</div>
+					<br>
+					<form class="form-inline" style="text-align: right;">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-sm" id="allow_text">
+						</div>
+						<button type="button" id='allow_filter_btn' class="btn-sm btn-primary">ADD</button>
+					</form>
+				</fieldset>
+				<fieldset class="form-group" name="Deny">
+					<legend>Deny</legend>
+                    <div id="deny_list" class="item_table">
+					</div>
+					<br>
+					<form class="form-inline" style="text-align: right;">
+						<div class="form-group">
+							<input type="text" class="form-control form-control-sm" id="deny_text">
+						</div>
+						<button type="button" id='deny_filter_btn' class="btn-sm btn-primary">ADD</button>
+					</form>
+				</fieldset>
+			</div>
 			<div class="right">
-				<div id="recordedList"></div>
+				<div id="data_list" class="item_table"></div>
 			</div>
 		</div>
-		<div class="bottom rfloat">
+		<div class="bottom">
 			<a class="" style="display:none" id="save_proc">----</a>
-			<button type="button" class="btn btn-primary" id="btn_save" >Save</button>
-			<button type="button" class="btn btn-primary" id="btn_start_stop" >Start</button>
+			<button type="button" class="btn-sm btn-primary subbtn" id="btn_save" >Save as .jmx</button>
+			<button type="button" class="btn-sm btn-primary subbtn" id="btn_start_stop" >Start</button>
 		</div>
 	</div>
 </body>

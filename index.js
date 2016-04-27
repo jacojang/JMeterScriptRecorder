@@ -12,7 +12,14 @@ var ctx = {
 	configTab:null,
 	tabWorker:null,
 	datas:[],
-	jmeter: jmeter
+	jmeter: jmeter,
+	filters: {
+		allow:[
+		],
+		deny:[
+			{text:'/.*/'}
+		]
+	}
 };
 
 // Make a button to enable recording function
@@ -37,6 +44,9 @@ var button = ActionButton({
 						});
 
 						ctx.tabWorker.port.emit('init',ctx);
+						for(var type in ctx.filters){
+							ctx.tabWorker.port.emit('filterLoad', ctx.filters[type], type);	
+						}
 						ctx.tabWorker.port.on("save",function() {
 							var str = ctx.jmeter.getScriptData(ctx.datas);
 							ctx.tabWorker.port.emit('save', str);
@@ -53,6 +63,22 @@ var button = ActionButton({
 								ctx.prefs['run'] = true;
 								ctx.tabWorker.port.emit('updateStartStop','Stop');
 							}
+						});
+						ctx.tabWorker.port.on('filterSave', function(text, type){
+							ctx.filters[type].push({
+								text: text
+							})
+							ctx.tabWorker.port.emit('filterLoad', ctx.filters[type], type);	
+						});
+						
+						ctx.tabWorker.port.on('filterDel', function(idx, type){
+							ctx.filters[type].splice(idx,1);
+							ctx.tabWorker.port.emit('filterLoad', ctx.filters[type], type);	
+						});
+						
+						ctx.tabWorker.port.on('dataDel', function(idx, type){
+							ctx.datas.splice(idx,1);
+							ctx.tabWorker.port.emit('dataLoad', ctx.datas, type);	
 						});
 					});
 

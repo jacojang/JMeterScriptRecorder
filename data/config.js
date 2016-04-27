@@ -21,17 +21,52 @@ function save(str){
 	a.setAttribute("href", '');
 }
 
-function clearList(){
-	var dataList = document.getElementById('recordedList');
-	dataList.textContent = '';
+function addData(newReq, length) {
+	var target = document.getElementById('data_list');
+	addItemList(target, [newReq], 'uri', 'data', '', true, parseInt(length)-1); 
 }
 
-function addData(newReq) {
-	var recordedList = document.getElementById('recordedList');
+function addItemList(target, list, key, listType, type, isAppend, startPos) {
+	if(!isAppend) target.textContent = '';
+	if(!startPos) startPos = 0;
+	
+	for (let i in list) {
+		var oItem = list[i];
+		var item = document.createElement('DIV');
+		item.className = type + ' item';
 
-	var div = document.createElement('div');
-	div.textContent = newReq.pathFull;
-	recordedList.appendChild(div);
+		var number = document.createElement('DIV');
+		number.className = 'item_number';
+		number.textContent = (parseInt(i) + startPos + 1);
+
+		var text = document.createElement('DIV');
+		text.className = 'item_text';
+		
+		var text_span = document.createElement('SPAN');
+		text_span.className = 'item_text_span';
+		text_span.textContent = oItem[key];
+		text.appendChild(text_span)
+
+		var control = document.createElement('DIV');
+		control.className = 'item_control';
+
+		var del = document.createElement('button');
+		del.className = 'btn-xs';
+		del.textContent = 'del';
+		del.setAttribute('type', 'button');
+		(function(idx){
+			del.addEventListener('click', function(){
+				self.port.emit(listType+'Del', idx, type);		
+			}, false);
+		})(parseInt(i) + startPos)
+		
+		item.appendChild(number);
+		item.appendChild(text);
+		item.appendChild(control);
+		control.appendChild(del);
+		
+		target.appendChild(item);
+	}
 }
 
 // ----------------------------------------------------------------------------
@@ -41,8 +76,8 @@ self.port.on('save', function(ctx){
 	save(ctx);
 });
 
-self.port.on('add', function(newReq){
-	addData(newReq);
+self.port.on('add', function(newReq, length){
+	addData(newReq, length);
 });
 
 self.port.on('init', function(ctx) {
@@ -50,12 +85,8 @@ self.port.on('init', function(ctx) {
 	self.port.emit('updatePrefs',"test");
 
 	// Data add
-	clearList();
-	for(var i in ctx.datas) {
-		if (!ctx.datas.hasOwnProperty(i)) { continue; }
-		var data = ctx.datas[i];
-		addData(data);
-	}
+	var target = document.getElementById('data_list');
+	addItemList(target, ctx.datas, 'uri', 'data'); 
 });
 
 self.port.on('updateStartStop', function(flag) {
@@ -63,16 +94,39 @@ self.port.on('updateStartStop', function(flag) {
 	btn.textContent = flag;
 });
 
+function filterCheckAndSave(textObj, type) {
+	var text = textObj.value;
+
+	if (!text || text.length < 1) {
+		alert('Invalid input text');
+		return;
+	}
+
+	self.port.emit('filterSave', text, type);
+}
+
+self.port.on('filterLoad', function(filterList, type){
+	var target = document.getElementById(type+'_list');
+	addItemList(target, filterList, 'text', 'filter', type);
+});
+
+self.port.on('dataLoad', function(dataList, type){
+	var target = document.getElementById('data_list');
+	addItemList(target, dataList, 'uri', 'data', type);
+});
+
 
 // ----------------------------------------------------------------------------
 // onLoad
 // ----------------------------------------------------------------------------
 (function(d){
+	// Save Button
 	var save = d.getElementById('btn_save');
 	save.addEventListener('click', function(){
 		self.port.emit('save');
 	}, false);
 
+	// Start/Stop Button
 	var btn = d.getElementById('btn_start_stop');
 	btn.addEventListener('click', function(){
 		if(btn.textContent === 'Start') {
@@ -81,4 +135,18 @@ self.port.on('updateStartStop', function(flag) {
 			self.port.emit('updateStartStop','Start');
 		}
 	}, false);
+
+	// Allow Filter
+	var allowFilterBtn = d.getElementById('allow_filter_btn');
+	allowFilterBtn.addEventListener('click', function(){
+		filterCheckAndSave(d.getElementById('allow_text'), 'allow');
+	}, false);
+
+	// Deny Filter
+	var denyFilterBtn = d.getElementById('deny_filter_btn');
+	denyFilterBtn.addEventListener('click', function(){
+		filterCheckAndSave(d.getElementById('deny_text'), 'deny');
+	}, false);
+
+
 })(document);
