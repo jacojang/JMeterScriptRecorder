@@ -53,6 +53,7 @@
 	width:calc(100% - 300px);
 	border-left: 1px solid darkgray;
 	overflow-y: scroll;
+	overflow-x: hidden;
 	padding:10px;
 }
 .bottom {
@@ -76,31 +77,41 @@
 	float: left;
 }
 
+.form-inline {
+	padding-top: 10px;
+}
+
 .item_table {
-	display: table;
+	display: block;
 	width: 100%;
 }
 .item {
-	display: table-row;
+	display: block;
+	clear: both;
+	line-height: 1.6em;
 }
 .item_text {
-	display: table-cell;
+	display: block;
 	color: darkgray;
+	float: left;
+    width: calc(100% - 50px);
 }
 .item_text_span {
-	display: table-cell;
+	display: block;
 	color: darkgray;
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
 .item_control {
-	display: table-cell;
+	display: block;
 	width: 30px;
+	float: left;
 }
 .item_number {
-	display: table-cell;
+	display: block;
 	width: 20px;
 	text-align: center;
 	font-size: 0.9em;
+	float: left;
 }
