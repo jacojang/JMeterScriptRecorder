@@ -142,11 +142,27 @@ self.port.on('dataLoad', function(dataList, type){
 		filterCheckAndSave(d.getElementById('allow_text'), 'allow');
 	}, false);
 
+	var allowFilterInput = d.getElementById('allow_text');
+	allowFilterInput.addEventListener("keydown", function (event) {
+		if (event.which == 13 || event.keyCode == 13) {
+			filterCheckAndSave(d.getElementById('allow_text'), 'allow');
+		}
+		return false;
+	}, true);
+
 	// Deny Filter
 	var denyFilterBtn = d.getElementById('deny_filter_btn');
 	denyFilterBtn.addEventListener('click', function(){
 		filterCheckAndSave(d.getElementById('deny_text'), 'deny');
 	}, false);
+	
+	var denyFilterInput = d.getElementById('deny_text');
+	denyFilterInput.addEventListener("keydown", function (event) {
+		if (event.which == 13 || event.keyCode == 13) {
+			filterCheckAndSave(d.getElementById('deny_text'), 'deny');
+		}
+		return false;
+	}, true);
 
 
 })(document);
